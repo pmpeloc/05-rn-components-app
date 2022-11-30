@@ -3,13 +3,9 @@ import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { FlatListMenuItem } from '../components/FlatListMenuItem';
+import { MenuItem } from '../interfaces/app.interface';
 import { styles } from '../theme/appTheme';
-
-interface MenuItem {
-  name: string;
-  icon: string;
-  components: string;
-}
 
 const menuItems: MenuItem[] = [
   {
@@ -26,17 +22,6 @@ const menuItems: MenuItem[] = [
 
 export const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
-
-  const renderMenuItem = (menuItem: MenuItem) => {
-    const { name, icon, components } = menuItem;
-    return (
-      <View>
-        <Text>
-          {name} - {icon}
-        </Text>
-      </View>
-    );
-  };
 
   const renderListHeader = () => {
     return (
@@ -56,7 +41,7 @@ export const HomeScreen = () => {
     <View style={{ flex: 1, ...styles.globalMargin }}>
       <FlatList
         data={menuItems}
-        renderItem={({ item }) => renderMenuItem(item)}
+        renderItem={({ item }) => <FlatListMenuItem menuItem={item} />}
         keyExtractor={item => item.name}
         ListHeaderComponent={renderListHeader}
         ItemSeparatorComponent={itemSeparator}
