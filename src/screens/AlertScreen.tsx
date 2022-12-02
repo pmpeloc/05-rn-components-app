@@ -17,10 +17,22 @@ export const AlertScreen = () => {
     );
   };
 
+  const showPrompt = () => {
+    Alert.prompt(
+      '¿Está seguro?',
+      'Esta acción no se puede revertir',
+      (value: string) => console.log({ value }),
+      'secure-text',
+      'Hello World',
+      'number-pad',
+    );
+  };
+
   return (
     <View style={styles.globalMargin}>
       <HeaderTitle title="Alerts" />
       <Button title="Show alert" onPress={showAlert} />
+      <Button title="Show prompt" onPress={showPrompt} />
     </View>
   );
 };
