@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React from 'react';
 import {
   TextInput,
   View,
@@ -13,17 +13,17 @@ import {
 
 import { HeaderTitle } from '../components/HeaderTitle';
 import { styles } from '../theme/appTheme';
+import { useForm } from '../hooks/useForm';
+import { Text } from 'react-native';
+import { CustomSwitch } from '../components/CustomSwitch';
 
 export const TextInputScreen = () => {
-  const [form, setForm] = useState({
+  const { form, onChange } = useForm({
     name: '',
     email: '',
     phone: '',
+    isSubscribe: false,
   });
-
-  const onChange = (value: string, key: string) => {
-    setForm({ ...form, [key]: value });
-  };
 
   return (
     <KeyboardAvoidingView
@@ -54,6 +54,13 @@ export const TextInputScreen = () => {
               keyboardType="phone-pad"
               keyboardAppearance="dark"
             />
+            <View style={stylesTextInput.switchRow}>
+              <Text style={stylesTextInput.switchText}>Suscribe</Text>
+              <CustomSwitch
+                isOn={form.isSubscribe}
+                onChange={value => onChange(value, 'isSubscribe')}
+              />
+            </View>
             <HeaderTitle title={JSON.stringify(form, null, 3)} />
             <View style={{ height: 100 }} />
           </View>
@@ -71,5 +78,14 @@ const stylesTextInput = StyleSheet.create({
     height: 50,
     paddingHorizontal: 10,
     marginVertical: 10,
+  },
+  switchRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  switchText: {
+    fontSize: 25,
   },
 });
