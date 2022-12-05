@@ -1,7 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState } from 'react';
-import { View, Image, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { FadeInImage } from '../components/FadeInImage';
 
 import { HeaderTitle } from '../components/HeaderTitle';
 
@@ -9,12 +10,7 @@ export const InfiniteScrollScreen = () => {
   const [numbers, setNumbers] = useState([0, 1, 2, 3, 4, 5]);
 
   const renderItem = (item: number) => {
-    return (
-      <Image
-        source={{ uri: `https://picsum.photos/id/${item}/500/400` }}
-        style={{ width: '100%', height: 400 }}
-      />
-    );
+    return <FadeInImage uri={`https://picsum.photos/id/${item}/500/400`} />;
   };
 
   const loadMore = () => {
